@@ -14,7 +14,7 @@ namespace GraphicsMod.Patches {
         [HarmonyPatch(typeof(FPSLimit), "Start")]
         [HarmonyPatch(typeof(FPSLimit), "SetFPSLimit")]
         [HarmonyPatch(typeof(SetFramerate), "Awake")]
-        private static void PatchLimit() {
+        private static void ApplyLimit() {
             // Unlimited fps
             if (Config.fpsLimitEnabled.Value == false) {
                 Application.targetFrameRate = -1;

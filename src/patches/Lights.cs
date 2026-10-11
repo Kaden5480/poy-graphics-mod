@@ -11,7 +11,7 @@ namespace GraphicsMod.Patches {
          * then this patch does nothing.
          * </summary>
          */
-        private static void PatchSunglare() {
+        private static void UpdateSunglare() {
             // Ignore when -nosg is provided
             if (DisplayOptions.sunglareLaunchOption == true) {
                 return;
@@ -37,7 +37,7 @@ namespace GraphicsMod.Patches {
          * Patches miscellaneous lights.
          * </summary>
          */
-        private static void PatchLight(Light light) {
+        private static void UpdateLight(Light light) {
             if (Config.lights.Value == false) {
                 light.enabled = false;
             }
@@ -52,7 +52,7 @@ namespace GraphicsMod.Patches {
          * Patches the sun, maybe.
          * </summary>
          */
-        private static void PatchSun(Light light) {
+        private static void UpdateSun(Light light) {
             if (Config.sunShadows.Value == false) {
                 light.shadows = LightShadows.None;
             }
@@ -64,19 +64,19 @@ namespace GraphicsMod.Patches {
          * the user's settings to them.
          * </summary>
          */
-        internal static void SceneLoad() {
+        internal static void UpdateLights() {
             foreach (Light light in GameObject.FindObjectsOfType<Light>()) {
                 // The sun, probably
                 if (light.type == LightType.Directional) {
-                    PatchSun(light);
+                    UpdateSun(light);
                     continue;
                 }
 
                 // Other lights
-                PatchLight(light);
+                UpdateLight(light);
             }
 
-            PatchSunglare();
+            UpdateSunglare();
         }
     }
 }

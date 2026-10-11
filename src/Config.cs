@@ -10,15 +10,15 @@ namespace GraphicsMod {
 
         // FPS Limit
         [Field("Enabled")]
-        [Listener(typeof(Patches.FPSLimiter), "PatchLimit")]
+        [Listener(typeof(Patches.FPSLimiter), "ApplyLimit")]
         internal static ConfigEntry<bool> fpsLimitEnabled { get; private set; }
 
         [Field("Limit", min=15, max=500)]
-        [Listener(typeof(Patches.FPSLimiter), "PatchLimit")]
+        [Listener(typeof(Patches.FPSLimiter), "ApplyLimit")]
         internal static ConfigEntry<int> fpsLimit { get; private set; }
 
         [Field("Vsync")]
-        [Listener(typeof(Patches.FPSLimiter), "PatchLimit")]
+        [Listener(typeof(Patches.FPSLimiter), "ApplyLimit")]
         internal static ConfigEntry<bool> fpsVsync { get; private set; }
 
         // Lighting
