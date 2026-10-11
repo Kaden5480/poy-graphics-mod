@@ -38,6 +38,11 @@ namespace GraphicsMod {
         [Listener(typeof(Patches.Lights), "UpdateSunglare")]
         internal static ConfigEntry<bool> sunglare { get; private set; }
 
+        // Post Processing
+        [Field("Enabled")]
+        [Listener(typeof(Patches.PostProcess), "UpdatePostProcess")]
+        internal static ConfigEntry<bool> postProcessEnabled { get; private set; }
+
         /**
          * <summary>
          * Initializes the config by binding to the
@@ -92,6 +97,12 @@ namespace GraphicsMod {
                 "Lighting", "sunglare", true,
                 "Whether sunglare should be enabled. This will not"
                 + " override the \"-nosg\" launch option."
+            );
+
+            // Post Processing
+            postProcessEnabled = configFile.Bind(
+                "Post Processing", "enabled", true,
+                "Whether post processing should be enabled."
             );
         }
     }

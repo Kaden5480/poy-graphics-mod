@@ -32,6 +32,7 @@ namespace GraphicsMod {
          */
         internal static void SceneLoad() {
             Patches.Lights.SceneLoad();
+            Patches.PostProcess.SceneLoad();
         }
     }
 }
