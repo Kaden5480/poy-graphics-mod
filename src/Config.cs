@@ -23,15 +23,19 @@ namespace GraphicsMod {
 
         // Lighting
         [Field("Lights")]
+        [Listener(typeof(Patches.Lights), "UpdateLights")]
         internal static ConfigEntry<bool> lights { get; private set; }
 
         [Field("Shadows")]
+        [Listener(typeof(Patches.Lights), "UpdateLights")]
         internal static ConfigEntry<bool> shadows { get; private set; }
 
         [Field("Sun Shadows")]
+        [Listener(typeof(Patches.Lights), "UpdateDirectionalLights")]
         internal static ConfigEntry<bool> sunShadows { get; private set; }
 
         [Field("Sunglare")]
+        [Listener(typeof(Patches.Lights), "UpdateSunglare")]
         internal static ConfigEntry<bool> sunglare { get; private set; }
 
         /**

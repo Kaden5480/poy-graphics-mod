@@ -34,27 +34,31 @@ namespace GraphicsMod.Patches {
 
         /**
          * <summary>
-         * Patches miscellaneous lights.
+         * Updates miscellaneous lights.
          * </summary>
          */
-        private static void UpdateLight(Light light) {
-            if (Config.lights.Value == false) {
-                light.enabled = false;
-            }
+        private static void UpdateLights() {
+            foreach (Cache.LightInfo info in Cache.lights) {
+                info.light.enabled = (Config.lights.Value == true)
+                    ? info.defaultEnabled
+                    : false;
 
-            if (Config.shadows.Value == false) {
-                light.shadows = LightShadows.None;
+                info.light.shadows = (Config.shadows.Value == true)
+                    ? info.defaultShadows
+                    : LightShadows.None;
             }
         }
 
         /**
          * <summary>
-         * Patches the sun, maybe.
+         * Updates the sun, maybe.
          * </summary>
          */
-        private static void UpdateSun(Light light) {
-            if (Config.sunShadows.Value == false) {
-                light.shadows = LightShadows.None;
+        private static void UpdateDirectionalLights() {
+            foreach (Cache.LightInfo info in Cache.directionalLights) {
+                info.light.shadows = (Config.sunShadows.Value == true)
+                    ? info.defaultShadows
+                    : LightShadows.None;
             }
         }
 
@@ -64,19 +68,10 @@ namespace GraphicsMod.Patches {
          * the user's settings to them.
          * </summary>
          */
-        internal static void UpdateLights() {
-            foreach (Light light in GameObject.FindObjectsOfType<Light>()) {
-                // The sun, probably
-                if (light.type == LightType.Directional) {
-                    UpdateSun(light);
-                    continue;
-                }
-
-                // Other lights
-                UpdateLight(light);
-            }
-
+        internal static void SceneLoad() {
             UpdateSunglare();
+            UpdateLights();
+            UpdateDirectionalLights();
         }
     }
 }
